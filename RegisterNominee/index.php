@@ -178,26 +178,7 @@ include '../Constants/Languages/index.php';
 
 		verifyOtpBtn.onclick=function(){
 			verifyOtpBtn.innerHTML="Please Wait...";
-
-			confirmationResult.confirm(otpInput.value).then((result) => {
-			  // User signed in successfully.
-			  const user = result.user;
-			  //console.log(user);
-			  // console.log(result.user.l);
-			  // console.log(result.user.xa);
-
-			  verifyOtpBtn.innerHTML="OTP Verified";
-			  messageBoxDivOTP.innerHTML="<div class=\"alert alert-success\" role=\"alert\">OTP Verified Successfully!</div>";
-			  verifyOtpBtn.innerHTML="Redirecting...";
-			  window.location.href = './VerifyOTP?l='+result.user.l+'&xa='+result.user.xa;
-
-			}).catch((error) => {
-			  // User couldn't sign in (bad verification code?)
-
-			  //console.log(error);
-			  messageBoxDivOTP.innerHTML="<div class=\"alert alert-danger\" role=\"alert\"><?php echo $INCORRECT_OTP ?></div>";
-			  verifyOtpBtn.innerHTML="Verify OTP";
-			});
+			window.location.href = '../RegisterNominee/RegistrationForm/1/index.php';
 
 		}
 		

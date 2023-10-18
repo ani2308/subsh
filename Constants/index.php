@@ -1,17 +1,11 @@
 <?php
 //DATABASE DETAILS
-$server = 'localhost'; // Change this if your MySQL server is on a different host
-$user = 'root';      // The default username in MAMP
-$pass = 'root';  // The default password in MAMP
-$db = 'subhiksha'; // Replace with your database name
+$user='root';
+$pass='';
+$db='subhiksha';
+$server='localhost'; // Replace with your database name
 
-// Create a connection
-$conn = new mysqli($server, $user, $pass, $db);
 
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 
 
