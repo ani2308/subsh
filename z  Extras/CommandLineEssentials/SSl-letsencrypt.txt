@@ -1,0 +1,60 @@
+https://www.youtube.com/watch?v=2sMrf9LiO00&feature=emb_logo
+
+add-apt-repository ppa:certbot/certbot
+apt update
+apt install python3-certbot-apache
+certbot --apache -d sangatan.com -d *.sangatan.in
+certbot --authenticator standalone --installer apache -d sanagatan.com --pre-hook "systemctl stop apache2" --post-hook "systemctl statrt apache2"
+nano /etc/apache2/sites-available/000-default.conf
+
+
+<VirtualHost _default_:443>
+
+        DocumentRoot /var/www/html/
+        ServerName sangatan.com
+        SSLEngine on
+
+        Include /etc/letsencrypt/options-ssl-apache.conf
+        SSLCertificateFile /etc/letsencrypt/live/sangatan.com/fullchain.pem
+        SSLCertificateKeyFile /etc/letsencrypt/live/sangatan.com/privkey.pem
+</VirtualHost>
+
+<VirtualHost *:80>
+        ServerName subhiksha.sangatan.com
+        RewriteEngine on
+        RewriteCond %{SERVER_PORT} !^443$
+        RewriteRule ^/(.*) https://%{HTTP_HOST}/$1 [NC,R=301,L]
+        DocumentRoot /var/www/html
+</VirtualHost>
+
+<VirtualHost *:80>
+        ServerName sangatan.com
+        DocumentRoot /var/www/html
+        RewriteEngine on
+        RewriteCond %{SERVER_PORT} !^443$
+        RewriteRule ^/(.*) https://%{HTTP_HOST}/$1 [NC,R=301,L]
+</VirtualHost>
+
+
+sudo service apache2 restart
+
+
+sudo apt install certbot
+
+sudo certbot certonly --manual -d *.sangatan.com -d sangatan.com --agree-tos --no-bootstrap --manual-public-ip-logging-ok --preferred-challenges dns-01 --server https://acme-v02.api.letsencrypt.org/directory
+
+sudo apache2ctl configtest
+
+sudo systemctl reload apache2
+
+
+---------------------------------------------------------------------------------------
+#RENEW CERTIFICATE
+
+sudo certbot certonly --server https://acme-v02.api.letsencrypt.org/directory --manual --preferred-challenges dns -d 'sangatan.com,*.sangatan.com'
+
+PASTE 2 TXT RECORDS IN DNS
+
+sudo apache2ctl configtest
+
+sudo systemctl reload apache2

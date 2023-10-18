@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      
+      <div class="col-md-4 border">
+        <form id="upload_form">
+          <label for="file">Choose file</label>
+          <input type="file" id="fileinput" />
+        </form>
+      </div>
+
+      <div class="col-md-4 border">
+        <div class="thumbnail">
+          <img id="source_image"  style="width:100%;">
+          <!-- <div class="caption">
+            <p>Source Image</p>
+            <p><input type="button" id="compress" value="Compress" class="btn-primary" style=""></p>
+          </div> -->
+        </div>
+      </div>
+      <div class="col-md-4 border">
+        <div class="thumbnail">
+          <!-- <img id="compressed_image"  style="width:100%;"> -->
+          <!-- <div class="caption">
+            <p>Compressed Image</p>
+            <p><input type="button" id="upload" class="btn-success" value="Upload"></p>
+          </div> -->
+          <input type="button" id="upload" class="btn-success" value="Upload">
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="JIC.js"></script>
+
+  <script>
+  var output_format = null;
+  var file_name = null;
+
+  function readFile(evt) {
+
+    var file = evt.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+    var source_image = document.getElementById("source_image");
+    source_image.src = event.target.result;
+    // console.log(source_image);
+      
+      source_image.onload = function(){
+          // console.log("Image loaded");
+          output_format = file.name.split(".").pop();
+          var quality = 30;
+          source_image.src = jic.compress(source_image,quality,output_format).src;
+      }
+    };
+
+    // output_format = file.name.split(".").pop();
+    file_name = file.name;
+    // console.log("Filename:" + file.name);
+    // console.log("Fileformat:" + output_format);
+    // console.log("Filesize:" + (parseInt(file.size) / 1024) + " Kb");
+    // console.log("Type:" + file.type);
+
+    reader.readAsDataURL(file);
+    // $("#compress").show();
+      return false;
+  }
+
+ // compress image
+  // $( "#compress" ).click(function() {
+  //       var source_image = document.getElementById("source_image");
+
+  //       // if (source_image.src == "") {
+  //       //     alert("You must load an image first!");
+  //       //     return false;
+  //       // }
+
+  //       var quality = 30;
+        
+  //       // console.log("process start...");
+  //       // console.log("process start compress ...");
+  //       compressed_image.src = jic.compress(source_image,quality,output_format).src;
+  //     // console.log(compressed_image);
+  //     // $("#upload").show();
+      
+  // });
+
+  // upload imange
+  $( "#upload" ).click(function() {
+        // var compressed_image = document.getElementById("compressed_image");
+        var source_image = document.getElementById("source_image");
+        // if (compressed_image.src == "") {
+        //     alert("You must compress image first!");
+        //     return false;
+        // }
+
+      var successCallback= function(response){
+            console.log("image uploaded successfully! :)");
+            console.log(response);       
+        }
+
+        var errorCallback= function(response){
+            console.log("image Filed to upload! :)");
+            console.log(response); 
+        }
+      
+      // console.log("process start upload ...");
+      jic.upload(source_image, "upload.php", "file1", file_name,successCallback,errorCallback);
+      
+    });
+
+document.getElementById("fileinput").addEventListener("change", readFile, false);
+</script>
+
+</body>
+</html>

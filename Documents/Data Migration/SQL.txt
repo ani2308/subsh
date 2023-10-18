@@ -1,0 +1,47 @@
+====DUPLICATE PHONE NUMBERS=========
+SELECT * FROM `users98036` WHERE `contactNumber` IN (SELECT `contactNumber` FROM `users98036` GROUP BY `contactNumber` HAVING COUNT(*) > 1);
+
+ALTER TABLE tbl AUTO_INCREMENT = 1000;
+
+UPDATE `users98036` SET `contactNumberHash`=MD5(`contactNumber`);
+
+UPDATE `users98036`
+JOIN `locations` ON `users98036`.`state_code` =`locations`.`state_name`
+SET `users98036`.`state_code` = `locations`.`state_code`;
+
+UPDATE `users98036`
+JOIN `locations` ON `users98036`.`dist_code` =`locations`.`dist_name`
+SET `users98036`.`dist_code` = `locations`.`dist_code`;
+
+UPDATE `users98036`
+JOIN `locations` ON `users98036`.`taluka_code` =`locations`.`taluka_name`
+SET `users98036`.`taluka_code` = `locations`.`taluka_code`;
+
+UPDATE `users98036` SET `verified`=1, `verifierID`=0, `approved`=1, `approverID`=0, `formStatus1`=1, `formStatus2`=1, `formStatus3`=1, `formStatus4`=1 WHERE `isOldUser`=1;
+
+
+================ IMPORT USERS 1 ================
+ALTER TABLE `users98036` ADD `isImportedUser` INT NULL DEFAULT NULL AFTER `oldUserId`;
+
+UPDATE `users98036` SET `formStatus1`=1, `formStatus2`=1, `formStatus3`=1, `formStatus4`=1 WHERE `isImportedUser`=1;
+
+UPDATE `users98036` SET `contactNumberHash`=MD5(`contactNumber`) WHERE `isImportedUser`=1;
+
+UPDATE `users98036`
+JOIN `locations` ON `users98036`.`state_code` =`locations`.`state_name`
+SET `users98036`.`state_code` = `locations`.`state_code` WHERE `isImportedUser`=1;
+
+UPDATE `users98036`
+JOIN `locations` ON `users98036`.`dist_code` =`locations`.`dist_name`
+SET `users98036`.`dist_code` = `locations`.`dist_code` WHERE `isImportedUser`=1;
+
+UPDATE `users98036`
+JOIN `locations` ON `users98036`.`taluka_code` =`locations`.`taluka_name`
+SET `users98036`.`taluka_code` = `locations`.`taluka_code` WHERE `isImportedUser`=1;
+
+
+================ IMPORT USERS 1 ERROR OF CONTACT NUMBER WITHOUT +91 ================
+
+UPDATE `users98036` SET `contactNumber` = CONCAT("+91", `contactNumber`) WHERE `isImportedUser`=1;
+
+UPDATE `users98036` SET `contactNumberHash`=MD5(`contactNumber`) WHERE `isImportedUser`=1;

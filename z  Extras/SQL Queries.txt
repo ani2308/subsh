@@ -1,0 +1,40 @@
+Change php.ini file for max size and max post size to 3MB
+
+====DUPLICATE PHONE NUMBERS=========
+SELECT * FROM `users98036` WHERE `contactNumber` IN (SELECT `contactNumber` FROM `users98036` GROUP BY `contactNumber` HAVING COUNT(*) > 1);
+
+ALTER TABLE tbl AUTO_INCREMENT = 1000;
+
+UPDATE `users98036` SET `contactNumberHash`=MD5(`contactNumber`);
+
+UPDATE `users98036`
+JOIN `locations` ON `users98036`.`state_code` =`locations`.`state_name`
+SET `users98036`.`state_code` = `locations`.`state_code`;
+
+UPDATE `users98036`
+JOIN `locations` ON `users98036`.`dist_code` =`locations`.`dist_name`
+SET `users98036`.`dist_code` = `locations`.`dist_code`;
+
+UPDATE `users98036`
+JOIN `locations` ON `users98036`.`taluka_code` =`locations`.`taluka_name`
+SET `users98036`.`taluka_code` = `locations`.`taluka_code`;
+
+UPDATE `users98036` SET `verified`=1, `verifierID`=0, `approved`=1, `approverID`=0, `formStatus1`=1, `formStatus2`=1, `formStatus3`=1, `formStatus4`=1 WHERE `isOldUser`=1;
+
+
+=============USER ROLES ADDED======== Field Officer
+ALTER TABLE `users98036` ADD `userLevel` INT NOT NULL DEFAULT '1' AFTER `userID`, ADD `managerID` INT NOT NULL DEFAULT '0' AFTER `userLevel`;
+
+ALTER TABLE `availableproducts` ADD `unit` VARCHAR(30) NULL DEFAULT NULL AFTER `quantity`;
+
+ALTER TABLE `availableproducts` ADD `verified` INT NULL DEFAULT '0' AFTER `availableDate`;
+
+ALTER TABLE `availableproducts` CHANGE `verified` `productVerified` INT(11) NULL DEFAULT '0';
+
+ALTER TABLE `products4531` CHANGE `name` `producName` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `availableproducts` CHANGE `id` `availableProductsId` INT(11) NOT NULL AUTO_INCREMENT;
+
+
+=============MINOR========
+ALTER TABLE `availableproducts` ADD `isOrganic` VARCHAR(10) NULL AFTER `unit`;
