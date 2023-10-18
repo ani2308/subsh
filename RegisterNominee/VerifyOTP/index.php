@@ -5,12 +5,6 @@ session_start();
 include '../../Constants/index.php';
 
 $link=mysqli_connect($server,$user,$pass,$db);
-if (!$connection) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 $key=$_GET['l'];
 $idToken=$_GET['xa'];
