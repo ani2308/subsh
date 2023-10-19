@@ -37,7 +37,7 @@ $link=mysqli_connect($server,$user,$pass,$db);
 <body>
 
 	<div class="alert alert-primary" role="alert" style="margin: 10px;">
-	  <h4><u>Approved Nominee</u></h4>
+	  <h4><u>Approved Applicants</u></h4>
 	</div>
 
 	<form method="GET">
@@ -80,12 +80,12 @@ $link=mysqli_connect($server,$user,$pass,$db);
 
 		if(!mysqli_connect_error()){
 
-			$total_pages_sql = "SELECT COUNT(*) FROM `".$USERTABLENAME."` WHERE `verified`=1 AND `approved`=1 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1 AND 'UserType' = 0".$searchQuerySQL;
+			$total_pages_sql = "SELECT COUNT(*) FROM `".$USERTABLENAME."` WHERE  `verified`=1 AND `approved`=1 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1".$searchQuerySQL;
 	        $result = mysqli_query($link,$total_pages_sql);
 	        $total_rows = mysqli_fetch_array($result)[0];
 	        $total_pages = ceil($total_rows / $no_of_records_per_page);
 
-			$query="SELECT `userID`,`name`,`contactNumber`,`verifierID`,`approverID` FROM `".$USERTABLENAME."` WHERE `'UserType' = 0 AND verified`=1 AND `approved`=1 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1 AND".$searchQuerySQL." LIMIT $offset, $no_of_records_per_page";
+			$query="SELECT `userID`,`name`,`contactNumber`,`verifierID`,`approverID` FROM `".$USERTABLENAME."` WHERE `UserType` = 0 AND `verified`=1 AND `approved`=1 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1".$searchQuerySQL." LIMIT $offset, $no_of_records_per_page";
 			$result=mysqli_query($link,$query);
 
 			while ($row=mysqli_fetch_array($result)) {

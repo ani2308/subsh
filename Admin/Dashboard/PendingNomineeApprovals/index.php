@@ -37,7 +37,7 @@ $link=mysqli_connect($server,$user,$pass,$db);
 <body>
 
 	<div class="alert alert-primary" role="alert" style="margin: 10px;">
-	  <h4><u>Approved Applicants</u></h4>
+	  <h4><u>Pending Approvals</u></h4>
 	</div>
 
 	<form method="GET">
@@ -55,9 +55,7 @@ $link=mysqli_connect($server,$user,$pass,$db);
 			<th style="padding: 10px;text-align: center;font-size: 20px;"><span class="badge badge-danger" style="padding: 10px">Name</span></th>
 			<th style="padding: 10px;text-align: center;font-size: 20px;"><span class="badge badge-danger" style="padding: 10px">Contact Number</span></th>
 			<th style="padding: 10px;text-align: center;font-size: 20px;"><span class="badge badge-danger" style="padding: 10px">Verifier ID</span></th>
-			<th style="padding: 10px;text-align: center;font-size: 20px;"><span class="badge badge-danger" style="padding: 10px">Approver ID</span></th>
 			<th style="padding: 10px;text-align: center;font-size: 20px;"><span class="badge badge-danger" style="padding: 10px">View Application</span></th>
-			<th style="padding: 10px;text-align: center;font-size: 20px;"><span class="badge badge-success" style="padding: 10px">View Share Certificate</span></th>
 		</tr>
 
 		<?php
@@ -80,12 +78,12 @@ $link=mysqli_connect($server,$user,$pass,$db);
 
 		if(!mysqli_connect_error()){
 
-			$total_pages_sql = "SELECT COUNT(*) FROM `".$USERTABLENAME."` WHERE `verified`=1 AND `approved`=1 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1".$searchQuerySQL;
+			$total_pages_sql = "SELECT COUNT(*) FROM `".$USERTABLENAME."` WHERE `verified`=1 AND `approved`=0 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1".$searchQuerySQL;
 	        $result = mysqli_query($link,$total_pages_sql);
 	        $total_rows = mysqli_fetch_array($result)[0];
 	        $total_pages = ceil($total_rows / $no_of_records_per_page);
 
-			$query="SELECT `userID`,`name`,`contactNumber`,`verifierID`,`approverID` FROM `".$USERTABLENAME."` WHERE `UserType` =1 `verified`=1 AND `approved`=1 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1".$searchQuerySQL." LIMIT $offset, $no_of_records_per_page";
+			$query="SELECT `userID`,`name`,`contactNumber`,`verifierID` FROM `".$USERTABLENAME."` WHERE `UserType` =0 AND `verified`=1 AND `approved`=0 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1".$searchQuerySQL." LIMIT $offset, $no_of_records_per_page";
 			$result=mysqli_query($link,$query);
 
 			while ($row=mysqli_fetch_array($result)) {
@@ -95,19 +93,11 @@ $link=mysqli_connect($server,$user,$pass,$db);
 						<td style="padding: 10px;"><span style="padding: 10px">'.$row["name"].'</span></td>
 						<td style="padding: 10px;"><span style="padding: 10px">'.$row["contactNumber"].'</span></td>
 						<td style="padding: 10px;"><span style="padding: 10px">'.$row["verifierID"].'</span></td>
-						<td style="padding: 10px;"><span style="padding: 10px">'.$row["approverID"].'</span></td>
 
 						<td style="text-align: center; padding: 10px;">
 							<form method="GET" action="./ViewApplicantForm">
 								<input type="hidden" name="userID" value="'.$row['userID'].'">
 								<button style="margin-top: 2px;" class="btn btn-warning" type="submit" value="'.$row['userID'].'"><b>View Application</button>
-							</form>
-						</td>
-
-						<td style="text-align: center; padding: 10px;">
-							<form method="GET" action="../../../ShareCertificate">
-								<input type="hidden" name="userID" value="'.$row['userID'].'">
-								<button style="margin-top: 2px;" class="btn btn-success" type="submit" value="'.$row['userID'].'"><b>View Share Certificate</button>
 							</form>
 						</td>
 

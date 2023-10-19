@@ -85,7 +85,7 @@ $link=mysqli_connect($server,$user,$pass,$db);
 	        $total_rows = mysqli_fetch_array($result)[0];
 	        $total_pages = ceil($total_rows / $no_of_records_per_page);
 
-			$query="SELECT `userID`,`name`,`contactNumber`,`verifierID`,`approverID` FROM `".$USERTABLENAME."` WHERE `UserType` =1 `verified`=1 AND `approved`=1 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1".$searchQuerySQL." LIMIT $offset, $no_of_records_per_page";
+			$query="SELECT `userID`,`name`,`contactNumber`,`verifierID`,`approverID` FROM `".$USERTABLENAME."` WHERE `UserType` =0 AND `verified`=1 AND `approved`=1 AND `formStatus1`=1 AND `formStatus2`=1 AND `formStatus3`=1 AND `formStatus4`=1".$searchQuerySQL." LIMIT $offset, $no_of_records_per_page";
 			$result=mysqli_query($link,$query);
 
 			while ($row=mysqli_fetch_array($result)) {

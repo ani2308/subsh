@@ -1,10 +1,14 @@
 <?php
 //DATABASE DETAILS
-$user='root';
-$pass='';
-$db='subhiksha';
-$server='localhost'; // Replace with your database name
+$server = 'localhost'; // Change this if your MySQL server is on a different host
+$user = 'root';      // The default username in MAMP
+$pass = 'root';  // The default password in MAMP
+$db = 'subhiksha'; // Replace with your database name
 
+// Create a connection
+
+
+// Check the connection
 
 
 

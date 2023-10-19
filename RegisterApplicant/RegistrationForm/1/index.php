@@ -2,7 +2,10 @@
 
 session_start();
 
-
+if(!isset($_SESSION['applicantPhoneNumber'])){
+    header("Location: ../../");
+    exit;
+}
 
 if(isset($_SESSION['formStatus1'])){
   if($_SESSION['formStatus1']==1){

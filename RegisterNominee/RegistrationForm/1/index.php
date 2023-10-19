@@ -2,7 +2,10 @@
 
 session_start();
 
-
+// if(!isset($_SESSION['applicantPhoneNumber'])){
+//     header("Location: ../../");
+//     exit;
+// }
 
 if(isset($_SESSION['formStatus1'])){
   if($_SESSION['formStatus1']==1){
@@ -45,7 +48,6 @@ if(!mysqli_connect_error()){
     $_SESSION["applicantNomineeAge"]=isset($_POST["applicantNomineeAge"]) ? $_POST["applicantNomineeAge"] : "";
     $_SESSION["applicantNomineeRelation"]=isset($_POST["applicantNomineeRelation"]) ? $_POST["applicantNomineeRelation"] : "";
     $_SESSION["applicantIsOrganic"]=isset($_POST["applicantName"]) ? $_POST["applicantIsOrganic"] : "";
-    $_SESSION["UserType"]=0;
 
     if(
     array_key_exists("applicantName", $_POST) AND !$_POST['applicantName']=="" AND
@@ -181,6 +183,7 @@ if(!mysqli_connect_error()){
           <u><h4><?php echo $PERSONAL_INFO ?></h4></u>
 
           <div class="form-group">
+          <input name="UserType" type="hidden" class="form-control" autocomplete="off" value="0" >
             <label for="exampleInputEmail1"><?php echo $Full_Name?></label>
             <input name="applicantName" type="text" class="form-control" placeholder="<?php echo $Enter_Full_Name_Here ?>" autocomplete="off" required value="<?php echo isset($_SESSION["applicantName"])?$_SESSION["applicantName"]:""; ?>" >
             <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->

@@ -49,19 +49,38 @@ if(!isset($_SESSION['adminID'])){
                         <li>
                             <a href="#" onclick="approvedApplicants()">Approved Applicants</a>
                         </li>
+
                         <li>
-                            <a href="#" onclick="pendingApprovals()">Pending Approvals</a>
+                            <a href="#" onclick="approvedNominee()">Approved Nominee</a>
+                        </li>
+
+                        <li>
+                            <a href="#" onclick="pendingApprovals()">Pending  Approvals</a>
+                        </li>
+
+                        <li>
+                            <a href="#" onclick="pendingNomineeApprovals()">Pending Nominee Approvals</a>
                         </li>
                         <li>
                             <a href="#" onclick="verifiedApplicants()">Verified Applicants</a>
                         </li>
+
+                        <li>
+                            <a href="#" onclick="verifiedNominee()">Verified Nominee</a>
+                        </li>
                         <li>
                             <a href="#" onclick="UnverifiedApplicants()">Unverified Applicants</a>
+                        </li>
+
+                        <li>
+                            <a href="#" onclick="UnverifiedNominee()">Unverified Nominee</a>
                         </li>
                         <li>
                             <a href="#" onclick="OldApplicants()">Old Applicants</a>
                         </li>
-
+                        <li>
+                            <a href="#" onclick="OldNominee()">Old Nominee</a>
+                        </li>
 
                         <li class="">
                             <a href="#incompleteApplications" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Incomplete Applications</a>
@@ -193,28 +212,41 @@ if(!isset($_SESSION['adminID'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
-
+Nominee
         function approvedApplicants(){
             document.getElementById("contentFrame").src = "./ApprovedApplicants/";
+        }
+
+        function approvedNominee(){
+            document.getElementById("contentFrame").src = "./ApprovedNominee/";
         }
 
         function pendingApprovals() {
           document.getElementById("contentFrame").src = "./PendingApprovals/";
         }
  
+        function pendingNomineeApprovals() {
+          document.getElementById("contentFrame").src = "./PendingNomineeApprovals/";
+        }
 
         function verifiedApplicants(){
             document.getElementById("contentFrame").src = "./VerifiedApplicants/";
         }
-
+        function verifiedNominee(){
+            document.getElementById("contentFrame").src = "./VerifiedNominee/";
+        }
         function UnverifiedApplicants() {
           document.getElementById("contentFrame").src = "./UnverifiedApplicants/";
         }
-        
+        function UnverifiedNominee() {
+          document.getElementById("contentFrame").src = "./UnverifiedNominee/";
+        }
         function OldApplicants() {
           document.getElementById("contentFrame").src = "./OldApplicants/";
         }
-
+        function OldNominee() {
+          document.getElementById("contentFrame").src = "./OldNominee/";
+        }
         function personal() {
           document.getElementById("contentFrame").src = "./IncompleteApplications/Personal/";
         }
