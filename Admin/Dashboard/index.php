@@ -51,35 +51,16 @@ if(!isset($_SESSION['adminID'])){
                         </li>
 
                         <li>
-                            <a href="#" onclick="approvedNominee()">Approved Nominee</a>
-                        </li>
-
-                        <li>
                             <a href="#" onclick="pendingApprovals()">Pending  Approvals</a>
-                        </li>
-
-                        <li>
-                            <a href="#" onclick="pendingNomineeApprovals()">Pending Nominee Approvals</a>
                         </li>
                         <li>
                             <a href="#" onclick="verifiedApplicants()">Verified Applicants</a>
                         </li>
-
-                        <li>
-                            <a href="#" onclick="verifiedNominee()">Verified Nominee</a>
-                        </li>
                         <li>
                             <a href="#" onclick="UnverifiedApplicants()">Unverified Applicants</a>
                         </li>
-
-                        <li>
-                            <a href="#" onclick="UnverifiedNominee()">Unverified Nominee</a>
-                        </li>
                         <li>
                             <a href="#" onclick="OldApplicants()">Old Applicants</a>
-                        </li>
-                        <li>
-                            <a href="#" onclick="OldNominee()">Old Nominee</a>
                         </li>
 
                         <li class="">
@@ -106,6 +87,54 @@ if(!isset($_SESSION['adminID'])){
 
                     </ul>
                 </li>
+
+                <li class="">
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Manage Nominee</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu2">
+
+                        <li>
+                            <a href="#" onclick="approvedNominee()">Approved Nominee</a>
+                        </li>
+
+                        <li>
+                            <a href="#" onclick="pendingNomineeApprovals()">Pending Nominee Approvals</a>
+                        </li>
+
+                        <li>
+                            <a href="#" onclick="verifiedNominee()">Verified Nominee</a>
+                        </li>
+
+                        <li>
+                            <a href="#" onclick="UnverifiedNominee()">Unverified Nominee</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="OldNominee()">Old Nominee</a>
+                        </li>
+                        <li class="">
+                            <a href="#incompleteNominee" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Incomplete Nominee</a>
+                            <ul class="collapse list-unstyled" id="incompleteNominee">
+                                <li>
+                                    <a href="#" onclick="personal()">Only Personal Info Available</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="personalAadhar()">Only Personal & Aadhar Info Available</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="personalAadharReferrer()">Only Personal, Aadhar & Referrer Info Available</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="rejectedAadhar()">Rejected Aadhar Photo</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="rejectedPaymentPhoto()">Rejected Payment Photo</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+
+                
 
 
                 <li class="">
@@ -212,7 +241,7 @@ if(!isset($_SESSION['adminID'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
-Nominee
+
         function approvedApplicants(){
             document.getElementById("contentFrame").src = "./ApprovedApplicants/";
         }
